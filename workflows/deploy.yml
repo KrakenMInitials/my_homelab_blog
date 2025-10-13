@@ -1,0 +1,33 @@
+name: Deploy Go Backend to EC2
+on:
+  push:
+    branches: [ main ]   # or whatever branch you deploy from
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            set -e
+            cd /home/ec2-user/my_homelab_blog/server
+
+            echo " Pulling latest code..."
+            git pull origin main
+
+            echo " Building Go binary..."
+            go build -o myapp .
+
+            echo " Restarting service..."
+            sudo systemctl restart myapp
+
+            echo " Deployment complete."

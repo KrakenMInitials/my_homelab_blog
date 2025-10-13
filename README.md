@@ -11,3 +11,4 @@ Missing a bunch of updates since 8/16/2025 (commit history should exist) but ada
 - Github Actions CI/CD fully integrated with deployment on AWS EC2
 - AWS RDS Database connected and functional
 still lacks a proper frontend and requires curl to demo or test. may include AWS security vulnerabilities, please be nice and dont spam my endpoint if you end up finding it.
+Note to self: needs cleanup of folders for better presentation and fixes to .env variable loading logic on EC2 
